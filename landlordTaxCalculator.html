@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <!-- Begin Head -->
+    <head>
+        <!-- Basic -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Teicnua - Landlord tax calculator</title>
+        <meta name="keywords" content="teicnua, landlord, tax calcualtor" />
+        <meta name="description" content="Megakit - HTML5 Theme">
+        <meta name="author" content="www.teicnua.com">
+
+        <!-- Web Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i|Montserrat:400,700" rel="stylesheet">
+
+        <!-- Vendor Styles -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/animate.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/themify/themify.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/scrollbar/scrollbar.min.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/swiper/swiper.min.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Theme Styles -->
+        
+        <link href="css/theme/custom.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/global/global.css" rel="stylesheet" type="text/css"/>
+        
+        
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    </head>
+    <!-- End Head -->
+
+    <!-- Body -->
+    <body ng-app="myapp" class="ng-scope" >
+
+        <!--========== HEADER ==========-->
+        <header class="navbar-fixed-top s-header js__header-sticky js__header-overlay">
+            <!-- Navbar -->
+            <div class="s-header__navbar">
+                <div class="s-header__container">
+                    <div class="s-header__navbar-row">
+                        <div class="s-header__navbar-row-col">
+                            <!-- Logo -->
+                            <div class="s-header__logo">
+                                <a href="index.html" class="s-header__logo-link">
+                                    <img class="s-header__logo-img s-header__logo-img-default" src="img/teicnua.png" alt="Teicnua Logo">
+                                    <img class="s-header__logo-img s-header__logo-img-shrink" src="img/teicnua.png" alt="Teicnua Logo">
+                                </a>
+                            </div>
+                            <!-- End Logo -->
+                        </div>
+                        <div class="s-header__navbar-row-col">
+                            <!-- Trigger -->
+                            <a href="javascript:void(0);" class="s-header__trigger js__trigger">
+                                <span class="s-header__trigger-icon"></span>
+                                <svg x="0rem" y="0rem" width="3.125rem" height="3.125rem" viewbox="0 0 54 54">
+                                    <circle fill="transparent" stroke="#fff" stroke-width="1" cx="27" cy="27" r="25" stroke-dasharray="157 157" stroke-dashoffset="157"></circle>
+                                </svg>
+                            </a>
+                            <!-- End Trigger -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Navbar -->
+
+        </header>
+        <!--========== END HEADER ==========-->
+
+        <!--========== SWIPER SLIDER ==========-->
+
+        <!--========== END SWIPER SLIDER ==========-->
+
+  
+        <!--=========Pauls new section ==========-->
+        <div class="g-bg-color--sky-light">
+            
+            <div class="container g-padding-y-80--xs g-padding-y-125--sm" ng-controller="ListController1">
+                    <h2 class="g-font-size-20--xs g-font-size-28--md"><center>Landlord Tax Calculator(2017)</center></h2>
+                  <!--<input type="text" ng-model="yourName" placeholder="Enter a name here">-->
+                  <!--<hr> -->
+                  <!--<h1>Hello {{yourName}}!</h1> -->
+                  <div class="borderTest">
+                      <h3 class="g-font-size-20--xs g-font-size-24--md">Gross Rent Receivable: €({{rentalIncome}})</h3>
+                      <div class="g-margin-b-20--xs">
+                      <input type="text" class="form-control s-form-v2__input g-radius--50" ng-model="rentalIncome" placeholder="* Rental Income">
+                      </div> 
+                  </div>
+                  <br>
+                  <h2 class="g-font-size-20--xs g-font-size-24--md" >Overall Expenses: €({{getTotal() + houseInsurance + mpInterestToClaim + prtbReg + daft + misc + utilities}})</h2>
+                  <div class="row" >
+                        <div class="g-margin-b-20--xs">
+
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom s-form-v2__input g-radius--50" ng-model="mpInterest" placeholder="* Mortgage Interest">
+                           </div> 
+                            <div class="g-margin-b-20--xs">    
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50" ng-model="mpInterestToClaim" placeholder="Amount I can claim" value="{{mpInterest*isHAPRental()}}">
+                                <input type="checkbox"  name="hapRental" value="HAP rental"  ng-model="hapCheckbox" ng-load="isHAPRental()" ng-change="isHAPRental()"> HAP rental<br>   <!-- (100% mortgage interest can be claimed) -->
+                            </div>
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50"  ng-model="prtbReg"  placeholder="* PRTB registration">
+                            </div>
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50" ng-model="utilities"  placeholder="* Gas, Elec utilities">
+                            </div>
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50" ng-model="houseInsurance" value="0" placeholder="* House Insurance">
+                            </div>
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50" ng-model="daft"  placeholder="* Daft">
+                            </div>
+                            <div class="g-margin-b-20--xs">
+                                <input type="number" class="form-control-custom  s-form-v2__input g-radius--50" ng-model="misc"  placeholder="* Other Expenses">
+                            </div>
+                        </div>
+                 <!--</div> -->
+                <br>
+                <!-- <div class="row"> -->
+                        <div class="g-bg-color--sky-light" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="g-bg-color--sky-light">
+                                    <div class="g-bg-color--sky-light" >
+                                        <form ng-submit="addNew1()">
+                                            <table class="custom-table">
+                                                <!--<thead>
+                                                    <tr>
+                                                        <th><input type="checkbox" ng-model="selectedAll"  class="form-control s-form-v2__input g-radius--50" ng-click="checkAll()" /></th>
+                                                        <th class="fs-form-v2__input g-radius--50" >Firstname</th>
+                                                    </tr>
+                                                </thead>  -->
+                                                <tbody>
+                                                    <tr ng-repeat="personalDetail in personalDetails1">
+
+                                                        <td>
+                                                             <div class="g-margin-b-20--xs">
+                                                            <input placeholder="0" type="number" class="form-control s-form-v2__input g-radius--50" ng-model="personalDetail.fname1"/></td>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" ng-model="personalDetail.selected"/></td>
+                                                    </tr>
+                                                </tbody>
+                                                    <h3 class="g-font-size-20--xs">Repair Costs: €({{ getTotal() }})</h3> 
+                                            </table>
+
+                                            <div class="form-group">
+                                                                                            <button class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" id="more_fields">+ Add an item</button>
+          <input ng-hide="!personalDetails1.length" type="button" class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" ng-click="remove1()" value="Remove"> 
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div> 
+                <br>
+                 <div class="row">
+                       <div class="g-bg-color--sky-light" ng-controller="ListController">      
+                           <div class="row">
+                            <div class="col-md-12">
+                                <div class="g-bg-color--sky-light">
+                                    <div class="g-bg-color--sky-light" >
+                                        <form ng-submit="addNew()">
+                                            <table class="custom-table">
+                                                <tbody>
+                                    <tr ng-repeat="personalDetail in personalDetails">
+
+                                                        <td>
+                                                             <div class="g-margin-b-20--xs">
+                                                            <input placeholder="0" type="number" class="form-control s-form-v2__input g-radius--50" ng-model="personalDetail.fname"/></td>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" ng-model="personalDetail.selected"/></td>
+                                                    </tr>
+                                                </tbody>
+                                    <h2 class="g-font-size-20--xs g-font-size-24--md">Capital Allowances(Total) €({{ getTotal1() + previousYears }})</h2> 
+                                    <h3 class="g-font-size-20--xs">Capital Allowances from 2017 @ 12.5% €({{ getTotal1() }})</h3> 
+                                            </table>
+
+                                            <div class="form-group">
+
+                                            <button class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" id="more_fields">+ Add an item</button>
+                                           <input ng-hide="!personalDetails.length" type="button" class="text-uppercase s-btn s-btn--md s-btn--primary-bg g-radius--50 g-padding-x-80--xs" ng-click="remove()" value="Remove"> 
+                                
+                                            </div>
+                                        </form>
+                                                                <h3 class="g-font-size-20--xs">Capital Allowances from previous years</h3> 
+                                            <input placeholder="0" type="number" class="form-control s-form-v2__input g-radius--50" ng-model="previousYears"/></td>
+                                    </div>
+                            </div>
+    <br>
+    <h2 class="g-font-size-20--xs g-font-size-24--md">Net Rental Income:</h2>                         
+    <input placeholder="0" type="number" class="form-control s-form-v2__input g-radius--50" value="{{rentalIncome-mpInterest*isHAPRental()-prtbReg-utilities-houseInsurance-daft-misc-getTotal()-getTotal1()-previousYears}}"/></td> 
+<br>
+    <h2 class="g-font-size-20--xs g-font-size-24--md">Net Rental Income(Assesable for USC):</h2>                         
+    <input placeholder="0" type="number" class="form-control s-form-v2__input g-radius--50" value="{{rentalIncome-mpInterest*isHAPRental()-prtbReg-utilities-houseInsurance-daft-misc-getTotal()}}"/></td> 
+                            </div>
+                </div>  
+                  
+                
+                        </div> 
+
+
+                </div>
+     </div>
+        
+        <!--=========Pauls new section end==========-->
+ 
+        <!-- End Google Map -->
+        <!--========== END PAGE CONTENT ==========-->
+
+        <!--========== FOOTER ==========-->
+        <footer class="g-bg-color--dark">
+            <!-- Links -->
+            <div class="g-hor-divider__dashed--white-opacity-lightest">
+                <div class="container g-padding-y-80--xs">
+                    <div class="row">
+                        <div class="col-sm-2 g-margin-b-20--xs g-margin-b-0--md">
+                            <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
+                                <li><a class="g-font-size-15--xs g-color--white-opacity" href="#slider">Home</a></li>
+                                <li><a class="g-font-size-15--xs g-color--white-opacity" href="#portfolio">Work</a></li>
+                                <li><a class="g-font-size-15--xs g-color--white-opacity" href="#contactUs">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-2 g-margin-b-20--xs g-margin-b-0--md">
+                            <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
+                            </ul>
+                        </div> 
+                        
+                        <div class="col-sm-2 g-margin-b-40--xs g-margin-b-0--md">
+                            <ul class="list-unstyled g-ul-li-tb-5--xs g-margin-b-0--xs">
+                            </ul>
+                        </div> 
+                        <div class="col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 s-footer__logo g-padding-y-50--xs g-padding-y-0--md">
+                            <h3 class="g-font-size-18--xs g-color--white">Teicnua</h3>
+                            <p class="g-color--white-opacity">Teicnua is a software consultancy company founded in 2017. We are based in Annacotty, Limerick.</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <!-- End Links -->
+
+            <!-- Copyright -->
+            <div class="container g-padding-y-50--xs">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <a href="index.html">
+                            <img class="g-width-100--xs g-height-auto--xs" src="img/teicnua.png" alt="Megakit Logo">
+                        </a>
+                    </div>
+                    <div class="col-xs-6 g-text-right--xs">
+                        <p class="g-font-size-14--xs g-margin-b-0--xs g-color--white-opacity-light">
+                          <!--  <a href="http://keenthemes.com/preview/Megakit/">Megakit</a>  -->
+                            Theme Powered by: <a href="http://www.keenthemes.com/">KeenThemes.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- End Copyright -->
+        </footer>
+        <!--========== END FOOTER ==========-->
+
+        <!-- Back To Top -->
+        <a href="javascript:void(0);" class="s-back-to-top js__back-to-top"></a>
+
+        <!--========== JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) ==========-->
+        <!-- Vendor -->
+        <script type="text/javascript" src="vendor/jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery.migrate.min.js"></script>
+        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery.back-to-top.min.js"></script>
+        <script type="text/javascript" src="vendor/scrollbar/jquery.scrollbar.min.js"></script>
+        <script type="text/javascript" src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script type="text/javascript" src="vendor/swiper/swiper.jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/waypoint.min.js"></script>
+        <script type="text/javascript" src="vendor/counterup.min.js"></script>
+        <script type="text/javascript" src="vendor/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+        <script type="text/javascript" src="vendor/jquery.parallax.min.js"></script>
+           <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsXUGTFS09pLVdsYEE9YrO2y4IAncAO2U"></script> -->
+        <script type="text/javascript" src="vendor/jquery.wow.min.js"></script>
+
+        <!-- General Components and Settings -->
+        <script type="text/javascript" src="js/global.min.js"></script>
+        <script type="text/javascript" src="js/components/header-sticky.min.js"></script>
+        <script type="text/javascript" src="js/components/scrollbar.min.js"></script> 
+        <script type="text/javascript" src="js/components/magnific-popup.min.js"></script>
+        <script type="text/javascript" src="js/components/swiper.min.js"></script>
+        <script type="text/javascript" src="js/components/counter.min.js"></script>
+        <script type="text/javascript" src="js/components/portfolio-3-col.min.js"></script>
+        <script type="text/javascript" src="js/components/parallax.min.js"></script>
+        <script type="text/javascript" src="js/components/wow.min.js"></script>
+        
+        <!-- Angular -->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js"></script>
+        <script src="js/controller.js"></script>
+
+
+    </body>
+    <!-- End Body -->
+</html>
